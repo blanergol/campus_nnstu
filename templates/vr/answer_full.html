@@ -1,0 +1,106 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ issue.question }} | {{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your
+    experience.</p>
+<![endif]-->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- mobile-menu-area end -->
+    <!-- End of header area -->
+    <section class="breadcrumbs-area gray-bg ptb-110 page-title-fix solid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs breadcrumbst1">
+                        <h2 class="page-title">Ответ на вопрос</h2>
+                        <ul>
+                            <li><a class="active" href="{% url 'main:main' %}">Главная </a></li>
+                            <li><a class="active" href="{% url 'main:main' %}">Виртуальная примемная</a></li>
+                            <li>Ответ на вопрос</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start page content -->
+    <section class="news-page-area ptb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12">
+                    <div class="events-details-right-sidebar">
+                        <div class="about-lectures">
+                            <h3>Тема</h3>
+                            <p>{{ issue.subject }}</p>
+                        </div>
+                        <div class="about-lectures pt-40">
+                            <h3>Вопрос</h3>
+                            <p>{{ issue.question }}</p>
+                        </div>
+                        <div class="about-lectures pt-40">
+                            <h3>Ответ</h3>
+                            <p>{{ issue.answer|safe }}</p>
+                        </div>
+                        {% if issue.comments == True %}
+                            <div class="about-lectures pt-40">
+                                <h3>Комментарии</h3>
+                                <div id="disqus_thread"></div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="events-details-sidebar" style="margin-top: 0px;">
+                        <h3>Данные по вопросу</h3>
+                        <div class="events-details-book">
+                            <ul>
+                                <li><a href="#">Кто задал вопрос<span>{{ issue.who }}</span></a></li>
+                                <li><a href="#">Имя<span>{{ issue.name }}</span></a></li>
+                                <li><a href="#">Кому обращение<span>{{ issue.employees.post }}</span></a></li>
+                                <li><a href="#">Имя<span>{{ issue.employees.name }}</span></a></li>
+                                <li><a href="#">Дата вопроса<span>{{ issue.date }}</span></a></li>
+                                <li><a href="#">Дата ответа<span>{{ issue.date_answer }}</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp
+    ============================================ -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+<script>
+    (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://campus-ngtu-ru.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+</body>
+</html>

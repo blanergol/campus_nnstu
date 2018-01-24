@@ -1,0 +1,65 @@
+.reg-main input {
+    color: #fff;
+}
+
+input[type=file].files-service {
+    border: none;
+    padding: 0;
+    padding-bottom: 40px;
+}
+
+th {
+    min-width: 160px;
+}
+
+.employee-details {
+    margin: 10%;
+}
+
+.employee-details p {
+    color: #fff;
+}
+
+.header-top-social a {
+    color: #fff;
+}
+
+.footer-social ul li a {
+    color: #fff;
+}
+
+.nav-submenu {
+    width: 290px !important;
+}
+
+.date-all > span.month {
+    font-size: 20px !important;
+}
+
+.contact-area {
+    min-height: 660px !important;
+}
+
+h2.page-title {
+    text-transform: none !important;
+}
+
+.breadcrumbs > ul li {
+    text-transform: none !important;
+}
+
+.lecturers-details > p {
+    margin: 10px;
+}
+
+.link_n a:hover {
+    color: #fff;
+}
+
+.link_n a:visited {
+    color: #fff;
+}
+
+.header-top-social > ul li a:visited {
+    color: #fff !important;
+}

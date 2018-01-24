@@ -1,0 +1,294 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your
+    experience.</p>
+<![endif]-->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- End of header area -->
+
+    <!-- Start of slider area -->
+    <div class="slider-area">
+        <div class="slider-active">
+            {% for slide in slider %}
+                <div class="slider-all">
+                    <img src="{{ slide.photo_thumbnail.url }}" alt="">
+                    <div class="slider-text-wrapper">
+                        <div class="table">
+                            <div class="table-cell">
+                                <div class="slider-text animated">
+                                    <h2>{{ slide.title }}</h2>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <p style="color: #fff; font-family: 'Open Sans', sans-serif; font-size: 18px; margin: 14px 0 39px;">{{ slide.description }}</p>
+                                        </div>
+                                    </div>
+                                    <a class="button extra-small mb-20" href="{% url 'main:main' %}{{ slide.button_link }}">
+                                        <span>{{ slide.button_text }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- End of slider area -->
+    <div class="event-area ptb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title text-center mb-55">
+                        <h1 class="uppercase">Новости студгородка</h1>
+                        <p>Только актуальные и интересные новости студгородка от компетентных источников</p>
+                        <div class="separator my mtb-15">
+                            <i class="icofont icofont-hat-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for post in articles %}
+                    <div class="col-md-4 col-sm-6">
+                        <div class="news-are">
+                            <a href="{% url 'articles:full' pk=post.pk %}">
+                                <div class="news-img">
+                                    <img src="{{ post.img_thumbnail_short.url }}" alt="">
+                                    <div class="news-date">
+                                        <div class="blog-meta-2">
+                                        <span class="published3">
+                                            <i class="icofont icofont-ui-calendar"></i>
+                                            {{ post.created_date|date:"M d, Y" }}
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="img-text gray-bg" style="min-height: 220px;">
+                                    <h4>{{ post.title|truncatechars:50 }}</h4>
+                                    <p>{{ post.text|striptags|truncatechars:100|safe }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% if settings.enable_students %}
+        <div class="countdown-area bg-1 ptb-110 bg-opacity bg-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-xs-12 text-center">
+                        <div class="countdown-all">
+                            <h3>Для получения всех возможностей</h3>
+                            <h1>Зарегистрируйтесь</h1>
+                            <p style="font-size: 20px; color: #fff">После регистрации Вам будет доступен личный кабинет, где вы сможете воспользоваться сервисами студ.
+                                городка, например вызвать плотника, электрика или сантехника, а так же многое другое.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="register-from">
+                            <div class="register-top">
+                                <h3>Форма регистрации</h3>
+                                <p>При регистрации вы соглашаетесь с публичной <a href="">офертой</a></p>
+                            </div>
+                            <form class="reg-main" id="reg-mp-form" action="{% url 'students:reg_mp_students' %}" method="post">
+                                {% csrf_token %}
+                                <input required="" placeholder="Фамилия*" type="text" name="surname">
+                                <input class="form-control2" required="" placeholder="Email*" type="email" name="email">
+                                <input required="" placeholder="Телефон*" type="text" name="phone">
+                                <div class="sent text-center">
+                                    <button class="submit">Отправить</button>
+                                </div>
+                            </form>
+                            <p id="reg-mp-form-message"></p>
+                            <img src="{% static 'campus_nnstu/images/icons/c6.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- start courses area -->
+    <div class="upcoming-event-area pt-110 pb-70">
+        <div class="container">
+            <div class="section-title text-center mb-55">
+                <h1 class="uppercase">Календарь мероприятий</h1>
+                <p>Только интересные, позновательные и увлекательные мероприятия в студгородке НГТУ</p>
+                <div class="separator my mtb-15">
+                    <i class="icofont icofont-hat-alt"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="all-upcoming-event">
+                    {% for event in events %}
+                        <div class="col-md-6 col-sm-12" style="max-height: 230px;">
+                            <div class="single-upcoming mb-40">
+                                <div class="upcoming-date text-center">
+                                    <div class="date-all">
+                                        <span>{{ event.date|date:"j" }}</span>
+                                        <span class="month">{{ event.date|date:"F" }}</span>
+                                    </div>
+                                </div>
+                                <div class="single-upcoming-text">
+                                    <div class="blog-meta">
+                                        <span class="published3">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            с {{ event.time_start }} до {{ event.time_end }}
+                                        </span>
+                                        <span class="published4">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            {{ event.location }}
+                                        </span>
+                                    </div>
+                                    <h3><a href="{% url 'events:full' pk=event.id %}">{{ event.title|truncatechars:25 }}</a></h3>
+                                    <p>{{ event.text|striptags|truncatechars:150|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End courses area -->
+    <div class="counter-area bg-2 bg-opacity bg-relative ptb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3 text-center">
+                    <div class="counter-bottom2">
+                        <div class="counter-img">
+                            <img src="{% static 'campus_nnstu/images/icons/1.png' %}" alt="">
+                        </div>
+                        <div class="counter-all">
+                            <div class="counter-next2">
+                                <h2>Работников</h2>
+                            </div>
+                            <div class="counter cnt-two">
+                                <h1>70</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3  text-center">
+                    <div class="counter-bottom2 mrg-xs">
+                        <div class="counter-img">
+                            <img src="{% static 'campus_nnstu/images/icons/2.png' %}" alt="">
+                        </div>
+                        <div class="counter-all">
+                            <div class="counter-next2">
+                                <h2>Студентов</h2>
+                            </div>
+                            <div class="counter cnt-two">
+                                <h1>2000</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3  text-center">
+                    <div class="counter-bottom2 mrg-xs">
+                        <div class="counter-img">
+                            <img src="{% static 'campus_nnstu/images/icons/3.png' %}" alt="">
+                        </div>
+                        <div class="counter-all">
+                            <div class="counter-next2">
+                                <h2>Ответов</h2>
+                            </div>
+                            <div class="counter cnt-two">
+                                <h1>{{ hh.issues_count }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3  text-center">
+                    <div class="counter-bottom2 mrg-xs">
+                        <div class="counter-img">
+                            <img src="{% static 'campus_nnstu/images/icons/4.png' %}" alt="">
+                        </div>
+                        <div class="counter-all">
+                            <div class="counter-next2">
+                                <h2>Мероприятий</h2>
+                            </div>
+                            <div class="counter cnt-two">
+                                <h1>{{ hh.events_count }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End courses area -->
+    <div class="lecturers-area ptb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title text-center mb-60">
+                        <h1 class="uppercase">Студсовет студгородка</h1>
+                        <p>Одна из крупнейших студенческих организаций на карте твоего ВУЗа.
+                            В стенах общежитий мы помогаем тебе скрасить твою студенческую жизнь.
+                            Ты уже с нами.</p>
+                        <div class="separator my mtb-15">
+                            <i class="icofont icofont-hat-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for employee in employees %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="single-lecturers">
+                            <div class="lecturers-img">
+                                <a href="#"><img alt="" src="{{ employee.photo_thumbnail.url }}"></a>
+                                <div class="img-title">
+                                    <h3>{{ employee.name }}</h3>
+                                    <p>{{ employee.post }}</p>
+                                </div>
+                            </div>
+                            <div class="lecturers-details">
+                                <h3>{{ employee.name }}</h3>
+                                <p>{{ employee.post }}</p>
+                                <div class="employee-details">
+                                    <p>{{ employee.email }}</p>
+                                    <p><a href="{{ employee.vk }}" style="width: auto">Вконтакте</a></p>
+                                    <p>{{ employee.phone }}</p>
+                                </div>
+                                <p>{{ employee.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+</body>
+</html>

@@ -1,0 +1,98 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ответы на вопросы | {{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your
+    experience.</p>
+<![endif]-->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- mobile-menu-area end -->
+    <!-- End of header area -->
+    <section class="breadcrumbs-area gray-bg ptb-110 page-title-fix solid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs breadcrumbst1">
+                        <h2 class="page-title">Ответы на вопросы</h2>
+                        <ul>
+                            <li><a class="active" href="{% url 'main:main' %}">Главная </a></li>
+                            <li><a class="active" href="{% url 'main:main' %}">Виртуальная примемная</a></li>
+                            <li>Ответы на вопросы</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start page content -->
+    <section class="news-page-area ptb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-6">
+                    <form action="{% url 'vr:search' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input style="height: 30px;" type="text" name="issue" class="form-control" placeholder="Поиск по существующим вопросам">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">Найти</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="conract-area-bottom">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>От кого</th>
+                            <th>Тема</th>
+                            <th>Кому вопрос</th>
+                            <th>Дата вопроса</th>
+                            <th>Дата ответа</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for qq in issues %}
+                            <tr>
+                                <td>{{ qq.name }}</td>
+                                <td><a href="{% url 'vr:answer_full' pk=qq.pk %}">{{ qq.question }}</a></td>
+                                <td>{{ qq.employees }}</td>
+                                <td>{{ qq.date }}</td>
+                                <td>{{ qq.date_answer }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp
+    ============================================ -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+</body>
+</html>

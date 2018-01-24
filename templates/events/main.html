@@ -1,0 +1,107 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Мероприятия | {{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- mobile-menu-area end -->
+    <!-- End of header area -->
+    <section class="breadcrumbs-area gray-bg ptb-110 page-title-fix solid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs breadcrumbst1">
+                        <h2 class="page-title">Мероприятия</h2>
+                        <ul>
+                            <li><a class="active" href="{% url 'main:main' %}">Главная </a></li>
+                            <li>Мероприятия</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start page content -->
+    <section class="news-page-area ptb-110">
+        <div class="container">
+            <div class="row">
+                <div class="all-upcoming-event">
+                    {% for event in events %}
+                        <div class="col-md-6 col-sm-12" style="max-height: 230px;">
+                            <div class="single-upcoming mb-40">
+                                <div class="upcoming-date text-center">
+                                    <div class="date-all">
+                                        <span>{{ event.date|date:"j" }}</span>
+                                        <span class="month">{{ event.date|date:"F" }}</span>
+                                    </div>
+                                </div>
+                                <div class="single-upcoming-text">
+                                    <div class="blog-meta">
+                                        <span class="published3">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            с {{ event.time_start }} до {{ event.time_end }}
+                                        </span>
+                                        <span class="published4">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            {{ event.location }}
+                                        </span>
+                                    </div>
+                                    <h3><a href="{% url 'events:full' pk=event.id %}">{{ event.title|truncatechars:25 }}</a></h3>
+                                    <p>{{ event.text|striptags|truncatechars:150|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center pt-20">
+                    <div class="pages2">
+                        <ul>
+                            {% if events.has_previous %}
+                                <li><a href="?page={{ events.previous_page_number }}">←</a></li>
+                            {% endif %}
+                            {% for num in events.paginator.page_range %}
+                                {% if num == events.number %}
+                                    <li class="active"><a href="#">{{ num }}</a></li>
+                                {% else %}
+                                    <li><a href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if news.has_next %}
+                                <li><a href="?page={{ events.next_page_number }}">→</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+</body>
+</html>

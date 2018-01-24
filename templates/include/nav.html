@@ -1,0 +1,184 @@
+{% load staticfiles %}
+<!-- Start of header area -->
+<header class="header-area">
+    <div class="header-top blue-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-7 col-xs-12">
+                    <div class="header-top-info">
+                        <ul>
+                            <li>
+                                <a href="http://www.nntu.ru/" target="_blank"><img src="{% static 'campus_nnstu/images/logo/nnstu_logo.png' %}" style="width: 35px;"></a>
+                            </li>
+                            <li>
+                                <a href="#" style="cursor: default;">
+                                    <i class="zmdi zmdi-phone"></i>
+                                </a>
+                                {{ settings.phone }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-5 hidden-xs">
+                    <div class="header-top-right">
+                        <div class="header-top-social f-right">
+                            <p class="link_n"><a href="http://studgorod.nntu.ru" target="_blank">АИС Студгородок</a></p>
+                            <p style="border-left: 1px solid #fff; padding-left: 10px;">Следите за нами :</p>
+                            <ul>
+                                <li><a href="{{ settings.link_vk }}" target="_blank"><i class="icofont icofont-social-vk"></i></a></li>
+                                <li><a href="{{ settings.link_instagram }}" target="_blank"><i class="icofont icofont-social-instagram"></i></a></li>
+                                <li><a href="{{ settings.link_youtube }}" target="_blank"><i class="icofont icofont-social-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-bottom stick-h2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                    <div class="logo">
+                        <a href="{% url 'main:main' %}"><img src="{% static 'campus_nnstu/images/logo/logo.png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-md-10 hidden-sm hidden-xs">
+                    <div class="menu-area f-right">
+                        <nav>
+                            <ul id="header_navigation">
+                                <li><a href="{% url 'articles:main' %}">Новости</a></li>
+                                <li><a href="{% url 'events:main' %}">Мероприятия</a></li>
+                                <li class="coloumn-one"><a class="none-padding" href="#">О студгородке <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <ul class="nav-submenu">
+                                        <li><a href="{% url 'main:dormitories' %}">Общежития</a></li>
+{#                                        <li><a href="{% url 'main:leadership' %}">Подразделения</a></li>#}
+                                        <li><a href="{% url 'documents:main' %}">Документы</a></li>
+                                        <li><a href="{% url 'main:contact' %}">Контакты</a></li>
+                                    </ul>
+                                </li>
+                                <li class="coloumn-one"><a class="none-padding" href="#">Заселение <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <ul class="nav-submenu">
+                                        {% for page in pages %}
+                                            <li><a href="{% url 'pages:pages' pk=page.pk %}">{{ page.title }}</a></li>
+                                        {% endfor %}
+                                        {% for page in pages_student_unification %}
+                                            <li><a href="{% url 'pages:pages' pk=page.pk %}">{{ page.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+
+                                {% if settings.enable_vr %}
+                                    <li class="coloumn-one"><a class="none-padding" href="#">Виртуальная приемная <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                        <ul class="nav-submenu">
+                                            <li><a href="{% url 'vr:issues' %}">Задать вопрос</a></li>
+                                            <li><a href="{% url 'vr:answer' %}">Ответы на обращения</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+
+                                <li class="coloumn-one"><a class="none-padding" href="#">Внеучебная работа <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <ul class="nav-submenu">
+                                        <li><a href="{% url 'main:student_council' %}">Студсовет студгородка</a></li>
+                                        <li><a href="{% url 'main:newspaper' %}">Журнал "Пропуск"</a></li>
+                                        <li><a href="{% url 'main:student_unification' %}">Студенческие объединения НГТУ</a></li>
+                                    </ul>
+                                </li>
+
+                                {% if settings.enable_students %}
+                                    {% if request.session.logged %}
+                                        <li class="coloumn-one"><a class="none-padding" href="#">// Профиль <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                            <ul>
+                                                <li><a href="{% url 'students:main' pk=request.session.id %}">Мой профиль</a></li>
+                                                <li><a href="{% url 'students:logout_students' %}">Выйти</a></li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li class="coloumn-one"><a class="none-padding" href="#">// Войти <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                            <ul>
+                                                <li><a href="{% url 'students:reg' %}">Регистрация</a></li>
+                                                <li><a href="{% url 'students:auth' %}">Авторизация</a></li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- mobile-menu-area start -->
+<div class="mobile-menu-area">
+    <div class="container">
+        <div class="row">
+            <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
+                <div class="mobile-menu">
+                    <nav id="dropdown">
+                        <ul>
+                            <li><a href="{% url 'articles:main' %}">Новости</a></li>
+                            <li><a href="{% url 'events:main' %}">Мероприятия</a></li>
+                            <li><a href="#">О студгородке<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <ul>
+                                    <li><a href="{% url 'main:dormitories' %}">Общежития</a></li>
+{#                                    <li><a href="{% url 'main:leadership' %}">Подразделения</a></li>#}
+                                    <li><a href="{% url 'documents:main' %}">Документы</a></li>
+                                    <li><a href="{% url 'main:contact' %}">Контакты</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="#">Заселение <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <ul>
+                                    {% for page in pages %}
+                                        <li><a href="{% url 'pages:pages' pk=page.pk %}">{{ page.title }}</a></li>
+                                    {% endfor %}
+                                    {% for page in pages_student_unification %}
+                                        <li><a href="{% url 'pages:pages' pk=page.pk %}">{{ page.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+
+                            {% if settings.enable_vr %}
+                                <li><a href="#">Виртуальная приемная<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <ul>
+                                        <li><a href="{% url 'vr:issues' %}">Задать вопрос</a></li>
+                                        <li><a href="{% url 'vr:answer' %}">Ответы на вопросы</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+
+                            <li><a href="#">Внеучебная работа<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <ul>
+                                    <li><a href="{% url 'main:student_council' %}">Студсовет студгородка</a></li>
+                                    <li><a href="{% url 'main:newspaper' %}">Журнал "Пропуск"</a></li>
+                                    <li><a href="{% url 'main:student_unification' %}">Студенческие объединения НГТУ</a></li>
+                                </ul>
+                            </li>
+
+                            {% if settings.enable_students %}
+                                {% if request.session.logged %}
+                                    <li><a href="#">Профиль<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                        <ul>
+                                            <li><a href="{% url 'students:main' pk=request.session.id %}">Мой профиль</a></li>
+                                            <li><a href="{% url 'students:logout_students' %}">Выйти</a></li>
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li><a href="#">Войти<i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                        <ul>
+                                            <li><a href="{% url 'students:reg' %}">Регистрация</a></li>
+                                            <li><a href="{% url 'students:auth' %}">Авторизация</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- mobile-menu-area end -->

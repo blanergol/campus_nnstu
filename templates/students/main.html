@@ -1,0 +1,102 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Личный кабинет | {{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your
+    experience.</p>
+<![endif]-->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- mobile-menu-area end -->
+    <!-- End of header area -->
+    <section class="breadcrumbs-area gray-bg ptb-110 page-title-fix solid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs breadcrumbst1">
+                        <h2 class="page-title">Личный кабинет</h2>
+                        <ul>
+                            <li><a class="active" href="{% url 'main:main' %}">Главная </a></li>
+                            <li>Личный кабинет</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start page content -->
+    <section class="tab-accordion-area bg-off-white ptb-80 elements-tab-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="tab-content fix">
+                        <div class="tab-pane active" id="preview-2">
+                            <ul class="tab-list">
+                                <li class="active"><a href="#home" data-toggle="tab">Профиль студента</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="courses-information gray-bg">
+                                                <h3 class="sidebar-title">Ваши данные: </h3>
+                                                <ul class="sidebar-menu">
+                                                    <li>Фамилия :<span>{{ student.surname }}</span></li>
+                                                    <li>Имя :<span> {{ student.name }}</span></li>
+                                                    <li>Отчество :<span> {{ student.middle_name }}</span></li>
+                                                    <li>Email :<span> {{ student.email }}</span></li>
+                                                    <li>Телефон :<span> {{ student.phone }}</span></li>
+                                                    <li>Институт :<span> {{ student.institute }}</span></li>
+                                                    <li>Группа :<span> {{ student.group }}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="courses-information gray-bg">
+                                                <h3 class="sidebar-title">Проживание: </h3>
+                                                <ul class="sidebar-menu">
+                                                    <li>Общежитие :<span> {{ student.dormitory }}</span></li>
+                                                    <li>Комната :<span> {{ student.room }}</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if student.status == 0 %}
+                                        <h5 class="text-warning text-center" style="margin: 15px;">Ваши данные проверяются. Это произойдет достаточно быстро. Пока что Вам
+                                            доступен не весь функционал.</h5>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp
+    ============================================ -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+</body>
+</html>

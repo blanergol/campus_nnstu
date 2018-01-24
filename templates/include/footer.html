@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<footer class="footer-area">
+    <div class="footer-top ptb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-6">
+                    <div class="footer-text footer-social">
+                        <a href="{% url 'main:main' %}">
+                            <img alt="" src="{% static 'campus_nnstu/images/logo/logo-2.png' %}">
+                        </a>
+                        <p>{{ settings.description_short_about }}</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-text mrg-sm3 mrg-xs">
+                        <h3>Контакты</h3>
+                        <ul class="footer-text-all">
+                            <li><a href="{% url 'main:contact' %}">Контакты работников</a></li>
+                            <li><a href="mailto:artgrosvil@gmail.com">Связаться с разработчиками</a></li>
+                            <li><a href="{% url 'pages:pages' pk=8 %}">Карта портала</a></li>
+                            <li><span style="color: #fff;">{{ settings.address|striptags }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="footer-text footer-social">
+                        <h3>Мы в сетях</h3>
+                        <ul>
+                            <li><a href="{{ settings.link_vk }}" target="_blank"><i class="zmdi zmdi-vk"></i></a></li>
+                            <li><a href="{{ settings.link_instagram }}" target="_blank"><i class="zmdi zmdi-instagram"></i></a></li>
+                            <li><a href="{{ settings.link_youtube }}" target="_blank"><i class="icofont icofont-social-youtube"></i></a></li>
+                        </ul>
+                        <p><a href="{% url 'pages:pages' pk=10 %}">Политика</a> по обработке Персональных данных</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="footer-bottom-text ptb-20">
+                        <p>Разработка 2017© <a href="{% url 'main:leadership' %}">Кандзюба Н.К</a> и <a href="http://artgrosvil.ru/" target="_blank">Трусов И.И.</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

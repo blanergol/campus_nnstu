@@ -1,0 +1,142 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Студсовет студгородка | {{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- mobile-menu-area end -->
+    <!-- End of header area -->
+    <section class="breadcrumbs-area gray-bg ptb-110 page-title-fix solid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs breadcrumbst1">
+                        <h2 class="page-title">Студсовет студгородка</h2>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-ukEC5w4Qy5nv-lMlQ5dvgRBxCcbwsV6EZZrc7_cTlTVMsw/viewform" target="_blank"
+                           class="btn btn-primary" style="margin-left: 30px; margin-top: 5px;">Вступить в Студсовет</a>
+                        <ul>
+                            <li><a class="active" href="{% url 'main:main' %}">Главная </a></li>
+                            <li>Студсовет студгородка</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start page content -->
+    <section class="news-page-area ptb-110">
+        <div class="container">
+            {% for sc_item in student_council %}
+                <div class="row" {% if forloop.counter != 1 %}style="padding-top: 50px;"{% endif %}>
+                    <div class="col-md-12">
+                        <h3>
+                            {{ sc_item.group }}
+                            <a href="" target="_blank" class="btn btn-primary" style="margin-left: 10px; margin-top: 5px;">Положение</a>
+                        </h3>
+                        {{ sc_item.description|safe }}
+                    </div>
+                </div>
+                <div class="row lecturers-area">
+                    <details>
+                        <summary>Актив (посмотреть подробнее)</summary>
+                        {% for employee in sc_item.employees.all %}
+                            <div class="col-md-3 col-sm-6" style="margin-top: 20px;">
+                                <div class="single-lecturers">
+                                    <div class="lecturers-img">
+                                        <a href="#"><img alt="" src="{{ employee.photo_thumbnail.url }}"></a>
+                                        <div class="img-title">
+                                            <h3>{{ employee.name }}</h3>
+                                            <p>{{ employee.post }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="lecturers-details">
+                                        <h3>{{ employee.name }}</h3>
+                                        <p>{{ employee.post }}</p>
+                                        <div class="employee-details">
+                                            <p>{{ employee.email }}</p>
+                                            {% if employee.vk %}
+                                                <p><a href="{{ employee.vk }}" style="width: auto">Вконтакте</a></p>
+                                            {% endif %}
+                                            <p>{{ employee.phone }}</p>
+                                        </div>
+                                        <p>{{ employee.description|striptags }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </details>
+                </div>
+            {% endfor %}
+            <div class="row" style="padding-top: 50px;">
+                <div class="col-md-12">
+                    <h3>Старостат</h3>
+                    {{ settings.description_student_council_dormitories|safe }}
+                </div>
+            </div>
+            <div class="row lecturers-area">
+                <details>
+                    <summary>Актив (посмотреть подробнее)</summary>
+                    {% for dor_item in student_council_dormitories %}
+                        <details>
+                            <summary>{{ dor_item.name }}</summary>
+                            <div class="row">
+                                {% for employee in dor_item.employees.all %}
+                                    <div class="col-md-3 col-sm-6" style="margin-top: 20px;">
+                                        <div class="single-lecturers">
+                                            <div class="lecturers-img">
+                                                <a href="#"><img alt="" src="{{ employee.photo_thumbnail.url }}"></a>
+                                                <div class="img-title">
+                                                    <h3>{{ employee.name }}</h3>
+                                                    <p>{{ employee.post }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="lecturers-details">
+                                                <h3>{{ employee.name }}</h3>
+                                                <p>{{ employee.post }}</p>
+                                                <div class="employee-details">
+                                                    <p>{{ employee.email }}</p>
+                                                    {% if employee.vk %}
+                                                        <p><a href="{{ employee.vk }}" style="width: auto">Вконтакте</a></p>
+                                                    {% endif %}
+                                                    <p>{{ employee.phone }}</p>
+                                                </div>
+                                                <p>{{ employee.description|striptags }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </details>
+                    {% endfor %}
+                </details>
+            </div>
+        </div>
+    </section>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+</body>
+</html>

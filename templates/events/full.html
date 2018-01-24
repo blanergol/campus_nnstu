@@ -1,0 +1,98 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ event.title }} | {{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your
+    experience.</p>
+<![endif]-->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- mobile-menu-area end -->
+    <!-- End of header area -->
+    <section class="breadcrumbs-area gray-bg ptb-110 page-title-fix solid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs breadcrumbst1">
+                        <h2 class="page-title">{{ event.title }}</h2>
+                        <ul>
+                            <li><a class="active" href="{% url 'main:main' %}">Главная </a></li>
+                            <li><a href="{% url 'events:main' %}">Мероприятия</a></li>
+                            <li>{{ event.title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start page content -->
+    <section class="news-details-area pt-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="news-details-all gray-bg">
+                        <img src="{{ event.img_thumbnail_full.url }}" alt="">
+                        <div class="news-details-all-area pt-40 pl-200 pr-200">
+                            <div class="news-details-top">
+                                <h2>{{ event.title }}</h2>
+                                <div class="news-details-calender">
+                                    <div class="blog-meta-2">
+                                        <span class="published3">
+                                            <i class="icofont icofont-ui-calendar"></i>
+                                            {{ event.date|date:"j" }} {{ event.date|date:"F" }}; с {{ event.time_start }} до {{ event.time_end }}
+                                        </span>
+                                    </div>
+                                    <div class="blog-meta for-news">
+                                        <span class="published4">
+                                            <a href="#">
+                                                <i class="icofont icofont-map"></i>
+                                                {{ event.location }}
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-details-middle">
+                                <p>{{ event.text|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp
+    ============================================ -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+<script>
+    (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://campus-ngtu-ru.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+</body>
+</html>

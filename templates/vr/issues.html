@@ -1,0 +1,166 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Задать вопрос | {{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your
+    experience.</p>
+<![endif]-->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- mobile-menu-area end -->
+    <!-- End of header area -->
+    <section class="breadcrumbs-area gray-bg ptb-110 page-title-fix solid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs breadcrumbst1">
+                        <h2 class="page-title">Задать вопрос</h2>
+                        <ul>
+                            <li><a class="active" href="{% url 'main:main' %}">Главная</a></li>
+                            <li><a class="active" href="{% url 'main:main' %}">Виртуальная примемная</a></li>
+                            <li>Задать вопрос</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start page content -->
+    <section class="news-page-area ptb-110">
+        <div class="container">
+            <div class="row">
+                <p>Уважаемый гость портала студгородка НГТУ им. Р.Е. Алексеева! На данной странице Вы можете оставить обращение на любую тему по вопросам заселения,
+                    проживания в общежитиях, воспитательного процесса в студгородке, сообщить о проблеме как бытового, так и межличностного характера и т.д</p>
+                <details>
+                    <summary style="font-weight: 700">Правила использования виртуальной приемной</summary>
+                    {{ settings.rules_vr|safe }}
+                </details>
+                <div class="conract-area-bottom">
+                    <form id="issues-form" action="{% url 'vr:new_issue' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 pt-20">
+                                <div class="main-input">
+                                    <i class="icofont icofont-graduate-alt"></i>
+                                    <select name="employees">
+                                        <option value="" disabled selected>Должностное лицо</option>
+                                        {% for employee in employees %}
+                                            <option value="{{ employee.id }}">{{ employee.name }} ({{ employee.post }})</option>
+                                        {% endfor %}
+                                    </select>
+                                    <small id="employees" class="form-text text-muted">Выберите должностное лицо, которому хотите отправить обращение</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pt-20">
+                                <div class="main-input">
+                                    <input name="name" placeholder="Ваши фамилия, имя и отчество" type="text">
+                                    <i class="icofont icofont-user"></i>
+                                    <small id="name" class="form-text text-muted">Укажите Ваши данные, анонимные обращения не рассматриваются</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pt-20">
+                                <div class="main-input">
+                                    <input name="email" placeholder="Ваш email" type="email">
+                                    <i class="icofont icofont-email"></i>
+                                    <small id="email" class="form-text text-muted">На данную почту Вы получите уведомления по обращению</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pt-20">
+                                <div class="main-input">
+                                    <input name="phone" placeholder="Контактный телефон" type="text">
+                                    <i class="icofont icofont-phone"></i>
+                                    <small id="phone" class="form-text text-muted">Укажите Ваш контактный номер телефона для уточнения информации по обращению</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pt-20">
+                                <div class="main-input">
+                                    <i class="icofont icofont-book-alt"></i>
+                                    <select name="who">
+                                        <option value="" disabled selected>По отношению к НГТУ Вы являетесь</option>
+                                        <option value="Не имею отношения к НГТУ">Не имею отношения к НГТУ</option>
+                                        <option value="Абитуриент">Абитуриент</option>
+                                        <option value="Студент">Студент</option>
+                                        <option value="Слушатель">Слушатель</option>
+                                        <option value="Аспирант">Аспирант</option>
+                                        <option value="Преподаватель">Преподаватель</option>
+                                        <option value="Сотрудник">Сотрудник</option>
+                                        <option value="Выпускник">Выпускник</option>
+                                    </select>
+                                    <small id="who" class="form-text text-muted">Выберите Ваш статус по отношению к НГТУ им. Р. Е. Алексеева</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pt-20">
+                                <div class="main-input">
+                                    <i class="icofont icofont-book-alt"></i>
+                                    <select name="who_sub">
+                                        <option value="" disabled selected>Рубрика</option>
+                                        <option value="Заселение">Заселение</option>
+                                        <option value="Переселение">Переселение</option>
+                                        <option value="Выселение">Выселение</option>
+                                        <option value="Вахта">Вахта</option>
+                                        <option value="Клининг">Клининг</option>
+                                        <option value="Старостат">Старостат</option>
+                                        <option value="Электрика">Электрика</option>
+                                        <option value="Сантехника">Сантехника</option>
+                                        <option value="Состояние комнаты/блока">Состояние комнаты/блока</option>
+                                        <option value="Работа заведующих/комендантов">Работа заведующих/комендантов</option>
+                                        <option value="Нарушения Правил внутреннего распорядка">Нарушения Правил внутреннего распорядка</option>
+                                        <option value="Конфликтная ситуация; Места общего пользования">Конфликтная ситуация; Места общего пользования</option>
+                                        <option value="Другое">Другое</option>
+                                    </select>
+                                    <small id="who" class="form-text text-muted">Выберите тему вопроса</small>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pt-20">
+                                <div class="main-input">
+                                    <input name="subject" placeholder="Тема вопроса" type="text">
+                                    <i class="icofont icofont-pencil"></i>
+                                    <small id="subject" class="form-text text-muted">Укажите тему обращения</small>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pt-20">
+                                <div class="text-leave2">
+                                    <textarea name="question" placeholder="Опишите Ваш вопрос как можно более подробно. Это уменьшит время его обработки."></textarea>
+                                    <input id="checkBox" type="checkbox" required style="height:auto;width: 3%;">
+                                    <label for="checkBox">Я согласен(на) с правилами использования Виртуальной Приёмной студгородка НГТУ им. Р.Е. Алексеева.</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pt-20">
+                                <div class="text-leave2">
+                                    <button class="submit">Отправить вопрос</button>
+                                </div>
+                            </div>
+                        </div>
+                        <p id="issues-form-message"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp
+    ============================================ -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+</body>
+</html>

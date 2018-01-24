@@ -1,0 +1,165 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Регистрация | {{ settings.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% include "include/css.html" %}
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your
+    experience.</p>
+<![endif]-->
+<!-- Body main wrapper start -->
+
+<div class="wrapper">
+
+    <!-- Start of header area -->
+    {% include "include/nav.html" %}
+    <!-- mobile-menu-area end -->
+    <!-- End of header area -->
+    <section class="breadcrumbs-area gray-bg ptb-110 page-title-fix solid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs breadcrumbst1">
+                        <h2 class="page-title">Регистрация</h2>
+                        <ul>
+                            <li><a class="active" href="/">Главная </a></li>
+                            <li>Регистрация</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start page content -->
+    <section class="news-page-area ptb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 col-sm-6">
+                    <div class="conract-area-bottom text-center">
+                        <form id="reg-form" action="/reg_students/" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="main-input">
+                                            <input name="surname" placeholder="Фамилия*" type="text" value="{{ request.session.surname_tmp }}" required="">
+                                            <i class="icofont icofont-users-alt-2"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-md-offset-1 pt-30">
+                                        <div class="main-input mrg-eml">
+                                            <input name="name" placeholder="Имя*" type="text" required="">
+                                            <i class="icofont icofont-boy"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-md-offset-1 pt-30">
+                                        <div class="main-input mrg-eml">
+                                            <input name="middle_name" placeholder="Отчество*" type="text" required="">
+                                            <i class="icofont icofont-waiter"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="main-input mrg-eml">
+                                            <input name="email" placeholder="Email*" type="email" value="{{ request.session.email_tmp }}" required="">
+                                            <i class="icofont icofont-email"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-md-offset-1 pt-30">
+                                        <div class="main-input mrg-eml">
+                                            <input name="phone" placeholder="Телефон*" type="text" value="{{ request.session.phone_tmp }}" required="">
+                                            <i class="icofont icofont-mobile-phone"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-md-offset-1 pt-30">
+                                        <div class="main-input mrg-eml">
+                                            <input name="password" placeholder="Пароль*" type="password" required="">
+                                            <i class="icofont icofont-fire"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="main-input mrg-eml">
+                                            <i class="icofont icofont-institution"></i>
+                                            <select name="institute">
+                                                <option value="" disabled selected>Институт</option>
+                                                <option value="ИТС">ИТС</option>
+                                                <option value="ИРИТ">ИРИТ</option>
+                                                <option value="ИПТМ">ИПТМ</option>
+                                                <option value="ИЯЭиТФ">ИЯЭиТФ</option>
+                                                <option value="ИНЭУ">ИНЭУ</option>
+                                                <option value="ИНЭЛ">ИНЭЛ</option>
+                                                <option value="ИФХТиМ">ИФХТиМ</option>
+                                                <option value="АВШ">АВШ</option>
+                                                <option value="ЗВФ">ЗВФ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-md-offset-1 pt-30">
+                                        <div class="main-input mrg-eml">
+                                            <input name="group" placeholder="Группа*" type="text" required="">
+                                            <i class="icofont icofont-group"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-md-offset-1 pt-30">
+                                        <div class="main-input mrg-eml">
+                                            <i class="icofont icofont-home"></i>
+                                            <select name="dormitory">
+                                                <option value="" disabled selected>Общежитие</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-md-offset-1 pt-30">
+                                        <div class="main-input mrg-eml">
+                                            <input name="room" placeholder="Комната*" type="text" required="">
+                                            <i class="icofont icofont-bed"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 pt-30">
+                                    <div class="text-leave2">
+                                        <button class="submit">Регистрация</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <p id="reg-form-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End page content -->
+    <!-- Start footer area -->
+    {% include "include/footer.html" %}
+    <!-- End footer area -->
+    <!-- start scrollUp
+    ============================================ -->
+    <div id="toTop">
+        <i class="fa fa-chevron-up"></i>
+    </div>
+</div>
+{% include "include/js.html" %}
+</body>
+</html>
